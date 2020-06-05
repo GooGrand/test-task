@@ -1,0 +1,7 @@
+<p>Welcome to the administration, you are logged in as <?= $name ?></p>
+<?php if (!$admin) : ?>
+    <p>You don't have administrator privileges. Contact an admin and ask for them to assign them to you.</p>
+<?php endif ?>
+<h2><a href="editor">Article editor</a></h2>
+<h2><a href="article">Article list</a></h2>
+<h2><a href="administration/logoff">Logoff</a></h2>
