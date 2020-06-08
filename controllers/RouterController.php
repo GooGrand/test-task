@@ -9,7 +9,7 @@ class RouterController extends Controller
         $parsedUrl = $this->parseUrl($params[0]);
 
         if (empty($parsedUrl[0]))
-            $this->redirect('article/home');
+            $this->redirect('home');
 
         $controllerClass = $this->dashesToCamel(array_shift($parsedUrl)) . 'Controller';
 
@@ -44,4 +44,5 @@ class RouterController extends Controller
         $text = str_replace(' ', '', $text);
         return $text;
     }
+
 }

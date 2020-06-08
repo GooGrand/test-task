@@ -17,6 +17,7 @@ spl_autoload_register("autoloadFunction");
 // Connects to the database
 Db::connect("127.0.0.1", "root", "", "mvc_db");
 
+//$utils = new Utils();
 $userManager = new UserManager();
 $router = new RouterController();
 $router->process(array($_SERVER['REQUEST_URI']));

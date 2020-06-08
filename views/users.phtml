@@ -1,0 +1,29 @@
+
+<h1>Users list</h1>
+<table>
+<?php foreach ($users as $user) : ?>
+        <tr>
+            <td>
+                <h2><?= $user['name'] ?></h2>
+                <?= $user['email'] ?>
+                <?php if ($admin) : ?>
+                    <br />
+                    <a href="editor/<?= $user['user_id'] ?>">Edit</a>
+                    <a href="users/<?= $user['user_id'] ?>/remove">Remove</a>
+                <?php endif ?>
+            </td>
+        </tr>
+<?php endforeach ?>
+</table>
+
+
+<br>
+Страницы:
+<?=$num_pages ?>
+  <?  while ($page++ < $num_pages): ?>
+    <? if ($page == $cur_page): ?>
+        <b><?=$page?></b>
+    <? else: ?>
+        <a href="?page=<?=$page?>"><?=$page?></a>
+    <? endif ?>
+<? endwhile ?>

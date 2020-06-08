@@ -66,8 +66,5 @@ class Db
             "` = ? " . $condition,
             array_merge(array_values($values), $params));
     }
-    public static function getLastId()
-    {
-        return self::$connection->lastInsertId();
-    }
+
 }

@@ -11,8 +11,8 @@ class RegisterController extends Controller
         {
             try {
                 $userManager = new UserManager();
-                $userManager->register($_POST['name'], $_POST['password'], $_POST['password_repeat'], $_POST['abc']);
-                $userManager->login($_POST['name'], $_POST['password']);
+                $userManager->register($_POST['name'],$_POST['surname'], $_POST['email'], $_POST['birthday'], $_POST['password'], $_POST['password_repeat'], $_POST['abc']);
+                $userManager->login($_POST['email'], $_POST['password']);
                 $this->addMessage('You were successfully registered.');
                 $this->redirect('administration');
             }

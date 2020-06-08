@@ -6,39 +6,36 @@ class EditorController extends Controller
     {
         $this->authUser(true);
         // HTML head
-        $this->head['title'] = 'Article editor';
+        $this->head['title'] = 'User editor';
         // Creates a model instance
-        $articleManager = new ArticleManager();
+        $userGetter = new UserGetter();
         // Prepares an empty article
-        $article = array(
-            'article_id' => '',
-            'title' => '',
-            'content' => '',
-            'url' => '',
-            'description' => '',
+        $user = array(
+            'user_id' => '',
+            'name' => '',
+            'surname' => '',
+            'email' => '',
+            'birthday' => '',
         );
-        // Was the form submitted?
         if ($_POST)
         {
-            // Retrieves the article from POST
-            $keys = array('title', 'content', 'url', 'description');
-            $article = array_intersect_key($_POST, array_flip($keys));
-            // Stores the article into the database
-            $articleManager->saveArticle($_POST['article_id'], $article);
-            $this->addMessage('The article was successfully saved.');
-            $this->redirect('article/' . $article['url']);
+            $keys = array('name', 'surname', 'email', 'birthday');
+            $user = array_intersect_key($_POST, array_flip($keys));
+            $userGetter->saveUser($_POST['user_id'], $user);
+            $this->addMessage('The user was successfully saved.');
+            $this->redirect('article/' . $user['user_id']);
         }
         // Was the article URL entered with the intent to edit said article?
         else if (!empty($params[0]))
         {
-            $loadedArticle = $articleManager->getArticle($params[0]);
-            if ($loadedArticle)
-                $article = $loadedArticle;
+            $loadedUser = $userGetter->getUser($params[0]);
+            if ($loadedUser)
+                $user = $loadedUser;
             else
-                $this->addMessage('The article was not found.');
+                $this->addMessage('The user was not found.');
         }
 
-        $this->data['article'] = $article;
+        $this->data['user'] = $user;
         $this->view = 'editor';
     }
 }

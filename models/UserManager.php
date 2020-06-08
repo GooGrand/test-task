@@ -7,7 +7,7 @@ class UserManager
         return password_hash($password, PASSWORD_DEFAULT);
     }
 
-    public function register($name, $password, $passwordRepeat, $year)
+    public function register($name, $surname, $email, $birthday, $password, $passwordRepeat, $year)
     {
         if ($year != date('Y'))
             throw new UserException('Invalid antispam.');
@@ -15,6 +15,9 @@ class UserManager
             throw new UserException('Password mismatch.');
         $user = array(
             'name' => $name,
+            'surname' => $surname,
+            'email' => $email,
+            'birthday' => $birthday,
             'password' => $this->computeHash($password),
         );
         try {
@@ -26,14 +29,14 @@ class UserManager
         }
     }
 
-    public function login($name, $password)
+    public function login($email, $password)
     {
         $user = Db::queryOne('
-            SELECT user_id, name, admin, password
+            SELECT user_id, email, name, admin, password
             FROM users 
-            WHERE name = ?
-        ', array($name));
-        if (!$user || !password_verify($password, $user['password']))
+            WHERE email = ?
+        ', array($email));
+        if (!$email || !password_verify($password, $user['password']))
             throw new UserException('Invalid username or password');
         $_SESSION['user'] = $user;
     }
